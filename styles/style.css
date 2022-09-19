@@ -1,0 +1,148 @@
+body {
+    margin: 0;
+}
+
+.Navbar {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    width: 100%;
+    height: 35px;
+    line-height:35px;
+}
+
+.NavItem {
+    display: flex;
+    margin-right: 20px;
+}
+.NavSlogan {
+    margin-left: 20px;
+}
+.HamburgerIcon {
+    display:none;
+}@media (max-width:600px){
+    .HamburgerIcon {
+        display:block;
+    }
+}
+
+.NavItem .Item {
+    display: block;
+    margin-left: 20px;
+}@media (max-width:600px){
+    .NavItem .Item {
+        display: none;
+    }
+}
+
+.Carousel {
+    width: 100%;
+    height: 300px;
+    background-color: aquamarine;
+    text-align:center;
+    line-height:300px;
+    font-size: 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.Container {
+    width: 100%;
+    background-color: rgb(46, 165, 126);
+}
+
+.Content {
+    margin: 0px auto;
+    background-color: rgb(180, 40, 40);
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}@media (max-width:1200px){
+    .Content {
+        margin: 0px auto;
+        background-color: rgb(180, 40, 40);
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+}@media (max-width:600px){
+    .Content {
+        margin: 0px auto;
+        background-color: rgb(180, 40, 40);
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+}
+
+.Top {
+    width: calc(50% - 20px);
+    margin: 10px;
+    background-color: rgb(40, 161, 180);
+    display: flex;
+}@media (max-width:1200px){
+    .Top{
+        width: calc(50% - 20px);
+        margin: 10px;
+    }
+}@media (max-width:600px){
+    .Top{
+        width: calc(100% - 20px);
+        margin: 10px;
+    }
+}
+
+.Top .ImgWrapper {
+    width: 15%;
+    height: auto;
+}@media (max-width:1200px){
+    .Top .ImgWrapper{
+        width: 20%;
+        height: auto;
+    }
+}@media (max-width:600px){
+    .Top .ImgWrapper{
+        width: 20%;
+        height: auto;
+    }
+}
+
+.Context {
+    margin: auto  5px;
+}
+
+.Card {
+    width: calc(25% - 20px);
+    margin: 10px;
+}@media (max-width:1200px){
+    .Card{
+        width: calc(50% - 20px);
+        margin: 10px;
+    }
+}@media (max-width:600px){
+    .Card{
+        width: calc(100% - 20px);
+        margin: 10px;
+    }
+}
+
+.Card .ImgWrapper{
+    width: 100%;
+}
+
+img{
+    width:100%;
+    height: 100%;
+    object-fit:fill;
+}
+
+.Title {
+    height: 50px;
+    background-color: aquamarine;
+    text-align:center;
+    line-height:50px;
+}
