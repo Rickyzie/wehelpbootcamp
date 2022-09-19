@@ -7,16 +7,18 @@ body {
     justify-content: space-between;
     font-size: 20px;
     width: 100%;
-    height: 35px;
-    line-height:35px;
+    height: 50px;
+    line-height:50px;
 }
 
 .NavItem {
     display: flex;
     margin-right: 20px;
+    font-weight: 0;
 }
 .NavSlogan {
     margin-left: 20px;
+    font-weight: 600;
 }
 .HamburgerIcon {
     display:none;
@@ -29,6 +31,7 @@ body {
 .NavItem .Item {
     display: block;
     margin-left: 20px;
+    font-weight: 0 ;
 }@media (max-width:600px){
     .NavItem .Item {
         display: none;
@@ -81,6 +84,7 @@ body {
 
 .Top {
     width: calc(50% - 20px);
+    height: 50px;
     margin: 10px;
     background-color: rgb(40, 161, 180);
     display: flex;
@@ -97,18 +101,7 @@ body {
 }
 
 .Top .ImgWrapper {
-    width: 15%;
     height: auto;
-}@media (max-width:1200px){
-    .Top .ImgWrapper{
-        width: 20%;
-        height: auto;
-    }
-}@media (max-width:600px){
-    .Top .ImgWrapper{
-        width: 20%;
-        height: auto;
-    }
 }
 
 .Context {
