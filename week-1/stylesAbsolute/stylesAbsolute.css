@@ -1,0 +1,154 @@
+body {
+    margin: 0;
+}
+
+.Navbar {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    width: 100%;
+    height: 50px;
+    line-height:50px;
+}
+
+.NavItem {
+    display: flex;
+    margin-right: 20px;
+    font-weight: 0;
+}
+.NavSlogan {
+    margin-left: 20px;
+    font-weight: 600;
+}
+.HamburgerIcon {
+    display:none;
+}@media (max-width:600px){
+    .HamburgerIcon {
+        display:block;
+    }
+}
+
+.NavItem .Item {
+    display: block;
+    margin-left: 20px;
+    font-weight: 0 ;
+}@media (max-width:600px){
+    .NavItem .Item {
+        display: none;
+    }
+}
+
+.Carousel {
+    width: 100%;
+    height: 300px;
+    background-color: aquamarine;
+    text-align:center;
+    line-height:300px;
+    font-size: 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.Container {
+    width: 100%;
+    background-color: rgb(46, 165, 126);
+}
+
+.Content {
+    margin: 0px auto;
+    background-color: rgb(180, 40, 40);
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}@media (max-width:1200px){
+    .Content {
+        margin: 0px auto;
+        background-color: rgb(180, 40, 40);
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+}@media (max-width:600px){
+    .Content {
+        margin: 0px auto;
+        background-color: rgb(180, 40, 40);
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+}
+
+.Top {
+    width: calc(50% - 20px);
+    height: 50px;
+    margin: 10px;
+    background-color: rgb(40, 161, 180);
+    display: flex;
+}@media (max-width:1200px){
+    .Top{
+        width: calc(50% - 20px);
+        margin: 10px;
+    }
+}@media (max-width:600px){
+    .Top{
+        width: calc(100% - 20px);
+        margin: 10px;
+    }
+}
+
+.Top .ImgWrapper {
+    height: auto;
+}
+
+.Context {
+    margin: auto  5px;
+}
+
+.Card {
+    position: relative;
+    width: calc(25% - 20px);
+    margin: 10px;
+}@media (max-width:1200px){
+    .Card{
+        width: calc(50% - 20px);
+        margin: 10px;
+    }
+}@media (max-width:600px){
+    .Card{
+        width: calc(100% - 20px);
+        margin: 10px;
+    }
+}
+
+.Card .ImgWrapper{
+    width: 100%;
+}
+
+img{
+    width:100%;
+    height: 100%;
+    object-fit:fill;
+}
+
+.Title {
+    position: absolute;
+    bottom: 4px;
+    width :100%;
+    background-color: rgba(251, 251, 251, 0.458);
+    height: 50px;
+    text-align:center;
+    line-height:50px;
+}
+
+.ShellIcon{
+    position: absolute;
+    width:10%;
+    top: 0px;
+    right: 0px;
+    margin-top: 3px;
+    margin-right: 3px;
+}
