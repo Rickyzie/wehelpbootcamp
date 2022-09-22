@@ -19,6 +19,9 @@ body {
 .NavSlogan {
     margin-left: 20px;
     font-weight: 600;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
 }
 .HamburgerIcon {
     display:none;
@@ -41,101 +44,97 @@ body {
 .Carousel {
     width: 100%;
     height: 300px;
-    background-color: aquamarine;
-    text-align:center;
+    background-color: rgb(255, 0, 238);
     line-height:300px;
     font-size: 40px;
+    text-align:center;
     white-space: nowrap;
+    overflow:hidden;
     text-overflow: ellipsis;
 }
 
 
 .Container {
     width: 100%;
-    background-color: rgb(46, 165, 126);
+    background-color: rgb(63, 255, 10);
 }
 
 .Content {
     margin: 0px auto;
-    background-color: rgb(180, 40, 40);
+    background-color: rgb(188, 255, 3);
     max-width: 1200px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
 }@media (max-width:1200px){
     .Content {
-        margin: 0px auto;
-        background-color: rgb(180, 40, 40);
-        width: 90%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
+        grid-template-columns: auto auto ;
     }
 }@media (max-width:600px){
     .Content {
-        margin: 0px auto;
-        background-color: rgb(180, 40, 40);
-        width: 90%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
+        grid-template-columns: auto ;
     }
 }
 
-.Top {
-    width: calc(50% - 20px);
+.Top-1 {
+    display: flex;
     height: 50px;
     margin: 10px;
-    background-color: rgb(40, 161, 180);
-    display: flex;
+    background-color: rgb(25, 0, 253);
+    grid-column-start: 1;
+    grid-column-end: 3;
+    color: aliceblue;
 }@media (max-width:1200px){
-    .Top{
-        width: calc(50% - 20px);
-        margin: 10px;
+    .Top-1{
+        grid-column-start: 1;
+        grid-column-end: 2;
     }
 }@media (max-width:600px){
-    .Top{
-        width: calc(100% - 20px);
-        margin: 10px;
+    .Top-1{
+        grid-column-start: 1;
+        grid-column-end: 2;
     }
 }
 
-.Top .ImgWrapper {
-    height: auto;
+.Top-2 {
+    display: flex;
+    height: 50px;
+    margin: 10px;
+    background-color: rgb(0, 184, 240);
+    grid-column-start: 3;
+    grid-column-end: 5;
+    color: aliceblue;
+
+}@media (max-width:1200px){
+    .Top-2{
+        grid-column-start: 2;
+        grid-column-end: 3;
+    }
+}@media (max-width:600px){
+    .Top-2{
+        grid-column-start: 1;
+        grid-column-end: 2;
+    }
 }
+
 
 .Context {
     margin: auto  5px;
 }
 
 .Card {
-    width: calc(25% - 20px);
     margin: 10px;
-}@media (max-width:1200px){
-    .Card{
-        width: calc(50% - 20px);
-        margin: 10px;
-    }
-}@media (max-width:600px){
-    .Card{
-        width: calc(100% - 20px);
-        margin: 10px;
-    }
-}
-
-.Card .ImgWrapper{
-    width: 100%;
+    background-color: blueviolet;
 }
 
 img{
     width:100%;
     height: 100%;
-    object-fit:fill;
+
 }
 
 .Title {
     height: 50px;
-    background-color: rgb(231, 220, 2);
+    background-color: rgba(215, 114, 64, 0);
     text-align:center;
     line-height:50px;
 }
