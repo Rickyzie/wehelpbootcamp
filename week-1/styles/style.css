@@ -24,16 +24,25 @@ body {
         width:50vw;
         height:100%;
         display: block;
-        position: absolute;
+        position: fixed;
         left: 100vw;
-        background-color: rgba(251, 251, 251, 0.458);
-
+        background-color: rgba(251, 251, 251, 0);
+    }
+}
+.ItemWrapper {
+    display: flex;
+}@media (max-width:600px){
+    .ItemWrapper {
+        display: block;
+        height: 100vh;
+        background-color: aliceblue;
     }
 }
 
+
 .Show-NavItem {
-    top:50px;
-    left: 50vw;
+    left:0;
+    padding-left: 50vw;
 }
 
 .NavSlogan {
