@@ -82,16 +82,14 @@ console.log("");
 
 console.log("Assignment 5");
 function twoSum(nums, target){
-    let newNums = nums.map((val)=>val-target);
-    let result = [];
-    newNums.map((i, i_index)=>{
-        if(result.length === 2) return;
-        nums.map((j, j_index)=>{
-            if(i + j === 0 && i_index != j_index){
-                result.push(i_index);
-                result.push(j_index);
-            };
-        });
+    let HashMap = {};
+    let result;
+    nums.forEach((val, index)=>{
+        if(HashMap[target - val] != undefined){
+            result = [HashMap[target - val], index];
+        }else{
+            HashMap[val] = index;
+        };
     });
     return result;
 };
@@ -101,11 +99,15 @@ console.log("");
 
 console.log("Assignment 6");
 function maxZeros(nums){
-    let array = [];
+    let array = [0];
     let counter = 0;
-    nums.map((val)=>{
-        array.push(0);
-        val===0?array[counter] += 1:counter += 1;
+    nums.forEach((val)=>{
+        if(val === 0){
+            array[counter] += 1
+        }else{
+            array.push(0);
+            counter += 1;
+        };
     });
     console.log(Math.max(...array));
     return Math.max(...array);
