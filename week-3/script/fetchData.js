@@ -1,4 +1,4 @@
-import { TopComponent } from "./component";
+import { TopComponent } from "./component.js";
 
 import (TopComponent)
 async function getData(){
