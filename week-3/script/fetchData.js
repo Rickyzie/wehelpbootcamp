@@ -1,6 +1,5 @@
 import { TopComponent } from "./component.js";
 
-import (TopComponent)
 async function getData(){
     await fetch('https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment.json')
     .then(function(response) {
