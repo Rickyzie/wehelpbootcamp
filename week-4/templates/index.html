@@ -20,17 +20,32 @@
         <div class="row">
             <div class="col"></div>
             <div class="col-6">
-                <form id="form">
+                <form id="formLogin">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">帳號</label>
                         <input name="account" type="account" class="form-control" id="exampleInputEmail1" >
-                        <div id="emailHelp" class="form-text">我們一定會洩漏你的帳號密碼</div>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">密碼</label>
                         <input name="password" type="password" class="form-control" id="exampleInputPassword1">
                     </div>
-                    <button id="submit" type="submit" class="btn btn-primary">提交</button>
+                    <button id="submitLogin" type="submit" class="btn btn-primary">提交</button>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div style="margin:100px 0px 15px 0px" class="d-flex justify-content-center">
+            <h1><span>計算正整數的平方</span></h1>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <form id="formNum">
+                    <div class="mb-3">
+                        <label  class="form-label">正整數</label>
+                        <input name="naturalNumber"  class="form-control" >
+                    </div>
+                    <button id="submitNum" type="submit" class="btn btn-primary">計算</button>
                 </form>
             </div>
             <div class="col"></div>

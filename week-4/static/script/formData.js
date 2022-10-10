@@ -1,5 +1,6 @@
 
-const btn = document.querySelector('#submit');
+const submitLoginBtn = document.querySelector('#submitLogin');
+const submitNumBtn = document.querySelector('#submitNum');
 
 async function postData(url = '', data = {}) {
     // Default options are marked with *
@@ -23,14 +24,22 @@ async function postData(url = '', data = {}) {
     }
 }
 
-btn.addEventListener('click', (e) => {
+submitLoginBtn.addEventListener('click', (e) => {
     // prevent the form from submitting
     e.preventDefault();
-    let signinData = {};
     // show the form values
-    const formData = new FormData(document.getElementById('form'));
-    for(let [key, value] of formData.entries()) {
-        value?signinData[key] = value:void 0;
-    }
+    const formData = new FormData(document.getElementById('formNum'));
+    let signinData = {
+        account:formData.get("account"),
+        password:formData.get("password")
+    };
     postData("/signin", signinData)
+});
+
+submitNumBtn.addEventListener('click', (e) => {
+    // prevent the form from submitting
+    e.preventDefault();
+    // show the form values
+    const formData = new FormData(document.getElementById('formNum'));
+    window.location.href = `/square/${formData.get("natureNumber").toString()}`
 });

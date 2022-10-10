@@ -57,6 +57,9 @@ def logout():
     else:
         return 'Content-Type not supported!'
     
+@app.route('/square/<int:num>')
+def square(num):
+    return render_template('number.html')
 
     
 if __name__ == "__main__":

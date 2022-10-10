@@ -18,11 +18,11 @@
             <h1><span>恭喜您，成功登入系統</span></h1>
         </div>
         <div style="margin:50px 0px 15px 0px" class="d-flex justify-content-center">
-            <button onclick="myFunction()" style="font-size:40px" id="submit" type="submit" class="btn btn-primary">登出系統</button>
+            <button onclick="logout()" style="font-size:40px" id="submit" type="submit" class="btn btn-primary">登出系統</button>
         </div>
     </div>
     <script>
-        async function myFunction() {
+        async function logout() {
             try{
                 const response = await fetch("/logout", {
                     method: 'POST', // *GET, POST, PUT, DELETE, etc.
