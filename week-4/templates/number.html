@@ -19,7 +19,16 @@
         </div> 
     </div>
     <script>
-        document.querySelector("#message").innerHTML = parseInt(window.location.href.match(/\d*$/))**2;
+        let num = parseInt(window.location.href.match(/\d*$/));
+        function isPositiveInteger(s){//是否为正整数
+            const re = /^[0-9]+$/ ;
+            return re.test(s)
+        }
+        if(num === NaN){
+            document.querySelector("#message").innerHTML = "這不是數字不要唬爛我";
+        }else if (isPositiveInteger(num)){
+            document.querySelector("#message").innerHTML = num**2;
+        }
     </script>
 </body>
 </html>
