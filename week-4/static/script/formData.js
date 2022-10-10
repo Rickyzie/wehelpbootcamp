@@ -28,11 +28,12 @@ submitLoginBtn.addEventListener('click', (e) => {
     // prevent the form from submitting
     e.preventDefault();
     // show the form values
-    const formData = new FormData(document.getElementById('formNum'));
+    const formData = new FormData(document.getElementById('formLogin'));
     let signinData = {
         account:formData.get("account"),
         password:formData.get("password")
     };
+    console.log(signinData)
     postData("/signin", signinData)
 });
 
@@ -41,5 +42,5 @@ submitNumBtn.addEventListener('click', (e) => {
     e.preventDefault();
     // show the form values
     const formData = new FormData(document.getElementById('formNum'));
-    window.location.href = `/square/${formData.get("natureNumber").toString()}`
+    window.location.href = `/square/${formData.get("naturalNumber").toString()}`
 });
