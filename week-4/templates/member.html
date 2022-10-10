@@ -17,7 +17,31 @@
         <div style="margin:100px 0px 15px 0px" class="d-flex justify-content-center">
             <h1><span>恭喜您，成功登入系統</span></h1>
         </div>
-        
+        <div style="margin:50px 0px 15px 0px" class="d-flex justify-content-center">
+            <button onclick="myFunction()" style="font-size:40px" id="submit" type="submit" class="btn btn-primary">登出系統</button>
+        </div>
     </div>
+    <script>
+        async function myFunction() {
+            try{
+                const response = await fetch("/logout", {
+                    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                    mode: 'cors', // no-cors, *cors, same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'same-origin', // include, *same-origin, omit
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    redirect: 'follow', // manual, *follow, error
+                    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                    body: JSON.stringify({logout:"true"}) // body data type must match "Content-Type" header
+                    });
+                    response.redirected?window.location.href = response.url:void 0;  // parses JSON response into native JavaScript objects
+            }catch(err){
+                console.log(err)
+            }
+        }
+    </script>
 </body>
 </html>
