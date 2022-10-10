@@ -9,10 +9,8 @@ from markupsafe import escape
 app = Flask(__name__,
             static_folder="static",
             static_url_path="/")
-app.debug = True
 
 app.secret_key = 'sexy_secret_key'
-
 
 @app.route('/')
 def index():
@@ -39,8 +37,10 @@ def signin():
         if(json["account"]=="test" and json["password"]=="test"):
             session['account'] = json['account']
             return redirect('/member')
+        elif(json["account"]=="" or json["password"]==""):
+            return redirect('/error?message=請輸入帳號密碼')
         else:
-            return redirect('/error?message=你是個失敗者,沒有仁愛你,但基隆有仁愛區')
+            return redirect('/error?message=帳號密碼輸入錯誤')
     else:
         return 'Content-Type not supported!'
     
