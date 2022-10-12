@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div style="margin:100px 0px 15px 0px" class="d-flex justify-content-center">
+            <h1><span>寄送表單</span></h1>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <form method="post" action="http://127.0.0.1:3000/form", enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">enctype="multipart/form-data"</label>
+                        <input name="form" type="enctype" class="form-control">
+                    </div>
+                    <button  type="submit" class="btn btn-primary">送出</button>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <form method="post" action="http://127.0.0.1:3000/application", enctype="application/x-www-form-urlencoded">
+                    <div class="mb-3">
+                        <label class="form-label">enctype="application/x-www-form-urlencoded"</label>
+                        <input name="application" type="enctype" class="form-control">
+                    </div>
+                    <button  type="submit" class="btn btn-primary">送出</button>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <form method="post" action="http://127.0.0.1:3000/json", enctype="application/json">
+                    <div class="mb-3">
+                        <label class="form-label">enctype="application/json"</label>
+                        <input name="json" type="enctype" class="form-control">
+                    </div>
+                    <button  type="submit" class="btn btn-primary">送出</button>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <form id="formFetch" method="post" action="http://127.0.0.1:3000/fetch">
+                    <div class="mb-3">
+                        <label class="form-label">'Content-Type': 'application/json'</label>
+                        <input name="fetch" class="form-control">
+                    </div>
+                    <button id="submitFetch" type="submit" class="btn btn-primary">送出</button>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+    <script>
+        const submitFetchBtn = document.querySelector('#submitFetch');
+        async function postData(url = '', data = {}) {
+            try{
+                const response = await fetch(url, {
+                    method: 'POST', 
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data) 
+                    });
+                    response.redirected?window.location.href = response.url:void 0;  
+            }catch(err){
+                console.log(err)
+            }
+        }
+
+        submitFetchBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const formData = new FormData(document.getElementById('formFetch'));
+            let fetchData = {
+                fetch:formData.get("fetch"),
+            };
+            console.log(fetchData)
+            postData("http://127.0.0.1:3000/fetch", fetchData)
+        });
+    </script>
+</body>
+</html>
