@@ -12,10 +12,11 @@
         <div style="margin:100px 0px 15px 0px" class="d-flex justify-content-center">
             <h1><span>寄送表單</span></h1>
         </div>
+
         <div class="row">
             <div class="col"></div>
             <div class="col-6">
-                <form method="post" action="http://127.0.0.1:3000/form", enctype="multipart/form-data">
+                <form method="post" action="http://127.0.0.1:3000/form", enctype="text/plain">
                     <div class="mb-3">
                         <label class="form-label">enctype="multipart/form-data"</label>
                         <input name="form" type="enctype" class="form-control">
@@ -25,6 +26,7 @@
             </div>
             <div class="col"></div>
         </div>
+
         <div class="row">
             <div class="col"></div>
             <div class="col-6">
@@ -38,6 +40,7 @@
             </div>
             <div class="col"></div>
         </div>
+
         <div class="row">
             <div class="col"></div>
             <div class="col-6">
@@ -51,6 +54,7 @@
             </div>
             <div class="col"></div>
         </div>
+
         <div class="row">
             <div class="col"></div>
             <div class="col-6">
@@ -76,7 +80,8 @@
                     },
                     body: JSON.stringify(data) 
                     });
-                    response.redirected?window.location.href = response.url:void 0;  
+                const json = await response.json();
+                console.log(json.jsonKey)
             }catch(err){
                 console.log(err)
             }
@@ -88,8 +93,8 @@
             let fetchData = {
                 fetch:formData.get("fetch"),
             };
-            console.log(fetchData)
-            postData("http://127.0.0.1:3000/fetch", fetchData)
+
+            postData("http://127.0.0.1:3000/fetch", fetchData);
         });
     </script>
 </body>

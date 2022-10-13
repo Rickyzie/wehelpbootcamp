@@ -4,7 +4,6 @@ from flask import Response
 from markupsafe import escape
 from flask_cors import CORS
 from flask import Flask, session
-from flask_session.__init__ import Session
 
 app = Flask(__name__)
 # Check Configuration section for more details
@@ -13,7 +12,6 @@ app = Flask(__name__)
 #eyJrZXkiOiJhc2Rkc2FhYWFhYSJ9.Y0e79A.gLzuAuv0vMihbDR3PYl_6DAchb0
 #eyJrZXkiOiIifQ.Y0e8BA.X_fUj4GSTUuTUWaBN3PQP1ivaEY
 #eyJrZXkiOm51bGx9.Y0e8LA.5fw5HRcKzQDxS5DSTHA3tHfl7Lo
-cors = CORS(app, resources={r"/fetch": {"origins": "*"}})
 
 SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
@@ -32,29 +30,29 @@ def get():
 def form():
     print(request.content_type)
     print(request.form)
-    return Response("{'status':'201'}", status=201, mimetype='application/json')
+    return Response("{'這是jsonKey':'這是jsonValue'}", status=201, mimetype='application/json')
 
 @app.route('/application', methods=['POST'])
 def application():
     print(request.content_type)
     print(request.form)
-    return Response("{'status':'201'}", status=201, mimetype='application/json')
+    return "<div>{'這是jsonKey':'這是jsonValue'}</div>"
 
 @app.route('/json', methods=['POST'])
 def json():
     print(request.content_type)
     print(request.json)
-    return Response("{'status':'201'}", status=201, mimetype='application/json')
+    return Response("{'這是jsonKey':'這是jsonValue'}", status=201, mimetype='application/json')
 
 
 cors = CORS(app, resources={r"/fetch": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-@app.route('/fetch', methods=['POST'])
+@app.route('/fetch', methods=['post'])
 def fetch():
     print(request.content_type)
     print(request.json)
-    return Response("{'status':'201'}", status=201, mimetype='application/json')
+    return Response('{"jsonKey":"jsonValue"}', status=201, mimetype='text/plain')
 
 
     
