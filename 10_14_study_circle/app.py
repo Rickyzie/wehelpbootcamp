@@ -45,8 +45,8 @@ def json():
     return Response("{'這是jsonKey':'這是jsonValue'}", status=201, mimetype='application/json')
 
 
-cors = CORS(app, resources={r"/fetch": {"origins": "*"}})
-app.config['CORS_HEADERS'] = 'Content-Type'
+#cors = CORS(app, resources={r"/fetch": {"origins": "*"}})
+#app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/fetch', methods=['post'])
 def fetch():
