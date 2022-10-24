@@ -4,6 +4,7 @@ from flask import request
 from flask import render_template, url_for
 from flask import redirect
 from flask import session
+from markupsafe import escape
 import mysql.connector
  
 mydb = mysql.connector.connect(
@@ -34,7 +35,7 @@ def member():
         myresult = mycursor.fetchall() 
         content = ""
         for x in myresult:
-            component = '<h1><span id="message">{}:{}</span></h1>'.format(x[1], x[2]) 
+            component = '<h1><span id="message">{}:{}</span></h1>'.format(escape(x[1]), escape(x[2])) 
             content+=component
         
         return render_template('member.html', content = content, name = session["name"])
