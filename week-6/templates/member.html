@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <span style="margin:auto;font-size:60px" class="navbar-brand mb-0 h1">歡迎光臨，這是會員頁</span>
+        </div>
+    </nav>
+    <div class="container">
+        <div style="margin:100px 0px 15px 0px" class="d-flex justify-content-center">
+            <h1><span>{{name}}，成功登入系統</span></h1>
+        </div>
+        <form action="/logout" method="post">
+            <div style="margin:50px 0px 15px 0px" class="d-flex justify-content-center">
+                <button  style="font-size:40px"  type="submit" name="logout" value="true" class="btn btn-primary">登出系統</button>
+            </div>
+        </form>
+        <div class="d-flex justify-content-center" style="margin: 100px 0px">
+            <h1><span>快來留言吧!</span></h1>
+        </div>
+        <div class="d-flex justify-content-center" >
+            <form method="post" action="/message">
+                <div class="mb-3">
+                    <label class="form-label">留言</label>
+                    <input name="message"  class="form-control" id="exampleInputEmail1" >
+                </div>
+                <button id="submitLogin" type="submit" class="btn btn-primary">留言吧!</button>
+            </form>
+        </div>
+        <div class="d-flex justify-content-center" style="margin: 100px 0px">
+            <h1><span>留言板</span></h1>
+        </div>
+        <div class="d-flex justify-content-center" style="margin: 50px 0px; border-style:dashed;">
+            <h5><span>{{content|safe}}</span></h5>
+        </div>
+    </div>
+</body>
+</html>
