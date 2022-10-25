@@ -17,11 +17,9 @@ dbconfig = {
 
 cnxpool = mysql.connector.pooling.MySQLConnectionPool(
     pool_name = "mypool",
-    pool_size = 1,
+    pool_size = 2,
     **dbconfig
 )
-cnx = cnxpool.get_connection()
-mycursor = cnx.cursor()
 
 
 app = Flask(__name__,
@@ -41,9 +39,12 @@ def index():
 def member():
     try:
         if 'name' in session:
+            cnx = cnxpool.get_connection()
+            mycursor = cnx.cursor()
             mycursor.execute("SELECT * FROM message")
             myresult = mycursor.fetchall() 
             content = ""
+            
             for x in myresult:
                 component = '<h1><span id="message">{}:{}</span></h1>'.format(escape(x[1]), escape(x[2])) 
                 content+=component
@@ -63,11 +64,14 @@ def error():
 def signin():
     try:
         json = request.form
+        cnx = cnxpool.get_connection()
+        mycursor = cnx.cursor()
         sql = "SELECT * FROM member WHERE account = %s AND password = %s"
         na = (json["account"], json["password"])
         mycursor.execute(sql, na)
         myresult = mycursor.fetchall()
         session['name'] = myresult[0][1]
+        cnx.close()
         return redirect('/member')
     except:
         return redirect('/error?message=帳號或密碼輸入錯誤')
@@ -85,6 +89,8 @@ def logout():
 @app.route('/signup', methods=['POST'])
 def signup():    
         json = request.form
+        cnx = cnxpool.get_connection()
+        mycursor = cnx.cursor()
         sql = "INSERT INTO member (name, account, password) VALUES (%s, %s, %s)"
         val = (json["name"], json["account"], json["password"])
         mycursor.execute(sql, val)
@@ -98,8 +104,11 @@ def message():
     json = request.form
     sql = "INSERT INTO message (message_member, message) VALUES (%s, %s)"
     val = (session["name"], json["message"])
+    cnx = cnxpool.get_connection()
+    mycursor = cnx.cursor()
     mycursor.execute(sql, val)
     cnx.commit()
+    cnx.close()
     return redirect('/member')
     
 if __name__ == "__main__":
