@@ -1,4 +1,3 @@
-from msilib.schema import Component
 from flask import Flask
 from flask import request
 from flask import render_template, url_for
@@ -6,16 +5,16 @@ from flask import redirect
 from flask import session
 from markupsafe import escape
 import mysql.connector
- 
+
 mydb = mysql.connector.connect(
-  host="localhost",       # 数据库主机地址
-  user="root",    # 数据库用户名
-  passwd="aa24572880",   # 数据库密码
-  database= "member_db"
+    host="localhost",      
+    user="root",    
+    passwd="aa24572880",   
+    database= "member_db"
 )
- 
+
 mycursor = mydb.cursor()
- 
+
 app = Flask(__name__,
             static_folder="static",
             static_url_path="/")
@@ -26,20 +25,24 @@ app.secret_key = 'sexy_secret_key'
 def index():
     if 'name' in session:
         return redirect('/member')
+    
     return render_template('index.html')
 
 @app.route('/member')
 def member():
-    if 'name' in session:
-        mycursor.execute("SELECT * FROM message")
-        myresult = mycursor.fetchall() 
-        content = ""
-        for x in myresult:
-            component = '<h1><span id="message">{}:{}</span></h1>'.format(escape(x[1]), escape(x[2])) 
-            content+=component
-        
-        return render_template('member.html', content = content, name = session["name"])
-    else:
+    try:
+        if 'name' in session:
+            mycursor.execute("SELECT * FROM message")
+            myresult = mycursor.fetchall() 
+            content = ""
+            for x in myresult:
+                component = '<h1><span id="message">{}:{}</span></h1>'.format(escape(x[1]), escape(x[2])) 
+                content+=component
+            
+            return render_template('member.html', content = content, name = session["name"])
+        else:
+            return redirect('/')
+    except:
         return redirect('/')
 
 @app.route('/error')
@@ -69,7 +72,6 @@ def logout():
         return redirect('/')
     else:
         return redirect('/member')
-   
     
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -85,15 +87,12 @@ def signup():
     
 @app.route('/message', methods=['POST'])
 def message():
-
     json = request.form
     sql = "INSERT INTO message (message_member, message) VALUES (%s, %s)"
     val = (session["name"], json["message"])
     mycursor.execute(sql, val)
     mydb.commit()
     return redirect('/member')
-    
-
     
 if __name__ == "__main__":
     app.run(port=3000, debug = True) 
