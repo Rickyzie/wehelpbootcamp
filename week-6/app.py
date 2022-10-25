@@ -17,7 +17,7 @@ dbconfig = {
 
 cnxpool = mysql.connector.pooling.MySQLConnectionPool(
     pool_name = "mypool",
-    pool_size = 2,
+    pool_size = 1,
     **dbconfig
 )
 
@@ -44,7 +44,7 @@ def member():
             mycursor.execute("SELECT * FROM message")
             myresult = mycursor.fetchall() 
             content = ""
-            
+            cnx.close()
             for x in myresult:
                 component = '<h1><span id="message">{}:{}</span></h1>'.format(escape(x[1]), escape(x[2])) 
                 content+=component
