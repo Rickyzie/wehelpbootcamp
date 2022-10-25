@@ -6,14 +6,23 @@ from flask import session
 from markupsafe import escape
 import mysql.connector
 
-mydb = mysql.connector.connect(
-    host="localhost",      
-    user="root",    
-    passwd="",   
-    database= "member_db"
-)
+dbconfig = {
+    "host":"localhost",      
+    "user":"root",    
+    "passwd":"aa24572880",   
+    "database": "member_db"
+}
 
-mycursor = mydb.cursor()
+
+
+cnxpool = mysql.connector.pooling.MySQLConnectionPool(
+    pool_name = "mypool",
+    pool_size = 1,
+    **dbconfig
+)
+cnx = cnxpool.get_connection()
+mycursor = cnx.cursor()
+
 
 app = Flask(__name__,
             static_folder="static",
@@ -74,16 +83,15 @@ def logout():
         return redirect('/member')
     
 @app.route('/signup', methods=['POST'])
-def signup():
-    try:
+def signup():    
         json = request.form
         sql = "INSERT INTO member (name, account, password) VALUES (%s, %s, %s)"
         val = (json["name"], json["account"], json["password"])
         mycursor.execute(sql, val)
-        mydb.commit()
+        cnx.commit()
+        cnx.close()
         return redirect('/')
-    except:
-        return redirect('/error?message=帳號已經被註冊')
+    
     
 @app.route('/message', methods=['POST'])
 def message():
@@ -91,7 +99,7 @@ def message():
     sql = "INSERT INTO message (message_member, message) VALUES (%s, %s)"
     val = (session["name"], json["message"])
     mycursor.execute(sql, val)
-    mydb.commit()
+    cnx.commit()
     return redirect('/member')
     
 if __name__ == "__main__":
