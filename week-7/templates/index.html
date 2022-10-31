@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <span style="margin:auto;font-size:60px" class="navbar-brand mb-0 h1">歡迎光臨，請註冊登入系統</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div style="margin:100px 0px 15px 0px" class="d-flex justify-content-center">
+            <h1><span>註冊系統</span></h1>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <form method="post" action="/signup">
+                    <div class="mb-3">
+                        <label  class="form-label">姓名</label>
+                        <input name="name"  class="form-control" id="exampleInputEmail1" >
+                    </div>
+                    <div class="mb-3">
+                        <label  class="form-label">帳號</label>
+                        <input name="username" class="form-control" id="exampleInputEmail1" >
+                    </div>
+                    <div class="mb-3">
+                        <label  class="form-label">密碼</label>
+                        <input name="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <button id="submitLogin" type="submit" class="btn btn-primary">註冊</button>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+
+    </div>
+
+    <div class="container">
+        <div style="margin:100px 0px 15px 0px" class="d-flex justify-content-center">
+            <h1><span>登入系統</span></h1>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <form method="post" action="/login">
+                    <div class="mb-3">
+                        <label class="form-label">帳號</label>
+                        <input name="username"  class="form-control" id="exampleInputEmail1" >
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">密碼</label>
+                        <input name="password"  class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <button id="submitLogin" type="submit" class="btn btn-primary">登入</button>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+        
+    </div>
+</body>
+</html>

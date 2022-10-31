@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <span style="margin:auto;font-size:60px" class="navbar-brand mb-0 h1">歡迎光臨，這是會員頁</span>
+        </div>
+    </nav>
+    <div class="container">
+        <div style="margin:100px 0px 15px 0px" class="d-flex justify-content-center">
+            <h1><span class="memberName">{{name}}，成功登入系統</span></h1>
+        </div>
+        <form action="/logout" method="post">
+            <div style="margin:50px 0px 15px 0px" class="d-flex justify-content-center">
+                <button  style="font-size:40px"  type="submit" name="logout" value="true" class="btn btn-primary">登出系統</button>
+            </div>
+        </form>
+        <div class="d-flex justify-content-center" >
+            <form id="formSearch" method="post" action="/message">
+                <div class="mb-3">
+                    <label class="form-label">查詢會員姓名</label>
+                    <input name="username"  class="form-control" id="exampleInputEmail1" >
+                </div>
+                <button id="submitSearch" type="submit" class="btn btn-primary">查詢!</button>
+            </form>
+        </div>
+        <div class="d-flex justify-content-center" style="margin: 100px 0px 0px 0px">
+            <h1 class="dataName"></h1>
+        </div>
+        <div class="d-flex justify-content-center" >
+            <h1 class="dataUserame"></h1>
+        </div>
+        <div class="d-flex justify-content-center" style="margin: 100px 0px 0px 0px">
+            <form id="formPatchName" method="post" action="/message">
+                <div class="mb-3">
+                    <label class="form-label">更新我的姓名</label>
+                    <input name="name"  class="form-control" id="exampleInputEmail1" >
+                </div>
+                <button id="submitPatchName" type="submit" class="btn btn-primary">更新!</button>
+            </form>
+        </div>
+        <div class="d-flex justify-content-center" style="margin: 100px 0px 0px 0px">
+            <h1 class="patchName"></h1>
+        </div>
+    </div>
+    <script>
+        const submitSearchBtn = document.querySelector('#submitSearch');
+
+        async function getUsername(username) {
+            try{
+                const response = await fetch("/api/member" + `?username=${username}`);
+                const  {data}  = await response.json();
+                document.querySelector('.dataName').innerHTML = "name : " + data.name;
+                document.querySelector('.dataUserame').innerHTML = "username : " + data.username;
+            }catch(err){
+                console.log(err);
+            }
+        }
+
+        submitSearchBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const formData = new FormData(document.getElementById('formSearch'));
+            getUsername(formData.get("username"));
+        })
+
+        const submitPatchNameBtn = document.querySelector('#submitPatchName');
+
+        async function patchName(url = '', data = {}) {
+            try{
+                const response = await fetch(url, {
+                    method: 'PATCH', 
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data) 
+                    });
+                    const result = await response.json();
+                    console.log(result["ok"])
+                    document.querySelector('.patchName').innerHTML = result["ok"]?"更新成功":"更新失敗";
+                    getMemberName();
+            }catch(err){
+                console.log(err)
+            }
+        }
+
+        submitPatchNameBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const formData = new FormData(document.getElementById('formPatchName'));
+            data = {"name": formData.get("name")}
+            patchName("/api/member", data);
+        })
+
+        async function getMemberName() {
+            try{
+                const response = await fetch("/api/memberName");
+                const  {data}  = await response.json();
+                console.log(document.querySelector('.memberName'))
+                data.name?document.querySelector('.memberName').innerHTML = data.name + "，成功登入系統":void 0;
+            }catch(err){
+                console.log(err);
+            }
+        }
+    </script>
+</body>
+</html>
