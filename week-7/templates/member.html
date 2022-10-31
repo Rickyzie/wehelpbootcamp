@@ -101,7 +101,6 @@
             try{
                 const response = await fetch("/api/memberName");
                 const  {data}  = await response.json();
-                console.log(document.querySelector('.memberName'))
                 data.name?document.querySelector('.memberName').innerHTML = data.name + "，成功登入系統":void 0;
             }catch(err){
                 console.log(err);

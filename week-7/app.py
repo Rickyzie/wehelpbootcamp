@@ -1,8 +1,4 @@
-from flask import Flask, Response
-from flask import request
-from flask import render_template, url_for
-from flask import redirect
-from flask import session
+from flask import Flask, Response, request, render_template, redirect, session
 import mysql.connector
 import json
 
@@ -29,7 +25,6 @@ app.secret_key = 'sexy_secret_key'
 def index():
     if 'name' in session:
         return redirect('/member')
-    
     return render_template('index.html')
 
 @app.route('/member')
@@ -59,15 +54,15 @@ def signin():
         myresult = mycursor.fetchall()
         session["id"] = myresult[0][0]
         session['name'] = myresult[0][1]
-        cnx.close()
         return redirect('/member')
     except:
         return redirect('/error?message=帳號或密碼輸入錯誤')
+    finally:
+        cnx.close()
     
 @app.route('/logout', methods=['POST'])
 def logout():
     form = request.form
-    print(form)
     if(form["logout"]=="true"):
         session.pop('name', None)
         return redirect('/')
@@ -76,7 +71,10 @@ def logout():
     
 @app.route('/signup', methods=['POST'])
 def signup():    
+    try:
         json = request.form
+        if json["name"] == "" or json["username"] == "" or json["password"] == "":
+            raise Exception
         cnx = cnxpool.get_connection()
         mycursor = cnx.cursor()
         sql = "INSERT INTO member (name, username, password) VALUES (%s, %s, %s)"
@@ -85,10 +83,9 @@ def signup():
         cnx.commit()
         cnx.close()
         return redirect('/')
+    except:
+        return redirect('/error?message=資料輸入不完整')
     
-    
-
-
 @app.route('/api/member', methods=['GET'])
 def apiMember():
     try:
@@ -112,6 +109,8 @@ def apiMember():
         return Response(json.dumps(data), status=201, mimetype='application/json')
     except:
         return Response('{"data":null}', status=201, mimetype='application/json')
+    finally:
+        cnx.close()
     
 @app.route('/api/member', methods=['PATCH'])
 def patchMember():
@@ -124,10 +123,11 @@ def patchMember():
         session["name"] = json["name"]
         mycursor.execute(sql, val)
         cnx.commit()
-        cnx.close()
         return Response('{"ok":true}', status=201, mimetype='application/json')
     except:
         return Response('{"error":true}', status=201, mimetype='application/json')
+    finally:
+        cnx.close()
 
 @app.route('/api/memberName', methods=['GET'])
 def memberName():
