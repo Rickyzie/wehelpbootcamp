@@ -60,8 +60,6 @@ class MysqlConnecter:
     def fetchall(self):
         self.results = self.mycursor.fetchall()
         
-    
-
 app = Flask(__name__,
             static_folder="static",
             static_url_path="/")
@@ -149,7 +147,6 @@ def signup():
         print(e)
         return redirect('/error?message=資料輸入不完整')
     
-    
 @app.route('/api/member', methods=['GET'])
 def apiMember():
     try:
@@ -175,10 +172,7 @@ def apiMember():
         print(e)
         mc.close()
         return Response('{"data":null}', status=201, mimetype='application/json')
-    
-        
-        
-    
+     
 @app.route('/api/member', methods=['PATCH'])
 def patchMember():
     try:
