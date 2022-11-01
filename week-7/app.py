@@ -170,7 +170,7 @@ def apiMember():
             }
             return Response(json.dumps(data), status=201, mimetype='application/json')
         else:
-            return Response('{"error":true}', status=201, mimetype='application/json')
+            return Response('{"data":null}', status=201, mimetype='application/json')
     except Exception as e:
         print(e)
         mc.close()
