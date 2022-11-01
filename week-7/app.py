@@ -144,6 +144,7 @@ def signup():
         return redirect('/')
     except Exception as e:
         print(e)
+        mc.close()
         return redirect('/error?message=資料輸入不完整')
     
 @app.route('/api/member', methods=['GET'])
