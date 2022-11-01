@@ -51,8 +51,8 @@
         </div>
     </div>
     <script>
+        // submit seach and fetch json which with name and username
         const submitSearchBtn = document.querySelector('#submitSearch');
-
         async function getUsername(username) {
             try{
                 const response = await fetch("/api/member" + `?username=${username}`);
@@ -63,15 +63,13 @@
                 console.log(err);
             }
         }
-
         submitSearchBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const formData = new FormData(document.getElementById('formSearch'));
             getUsername(formData.get("username"));
         })
-
+        //patch the name 
         const submitPatchNameBtn = document.querySelector('#submitPatchName');
-
         async function patchName(url = '', data = {}) {
             try{
                 const response = await fetch(url, {
@@ -83,19 +81,19 @@
                     });
                     const result = await response.json();
                     document.querySelector('.patchName').innerHTML = result["ok"]?"更新成功":"更新失敗";
-                    getMemberName();
             }catch(err){
                 console.log(err)
             }
         }
-
+        //submit form and fetch the memberName to change class = memberName element
         submitPatchNameBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const formData = new FormData(document.getElementById('formPatchName'));
             data = {"name": formData.get("name")}
             patchName("/api/member", data);
+            getMemberName();
         })
-
+        // fetch the memberName when member page render
         async function getMemberName() {
             try{
                 const response = await fetch("/api/memberName");
