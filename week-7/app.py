@@ -1,4 +1,3 @@
-from unicodedata import name
 from flask import Flask, Response, request, render_template, redirect, session
 import mysql.connector
 import json
