@@ -1,19 +1,8 @@
 from flask import Flask, Response, request, render_template, redirect, session
-import mysql.connector
 import json
+from repository.mysqlConnectionPoolRepository import MysqlConnectionPoolRepository
 
-dbconfig = {
-    "host":"localhost",      
-    "user":"root",    
-    "passwd":"aa24572880",   
-    "database": "website"
-}
-
-cnxpool = mysql.connector.pooling.MySQLConnectionPool(
-    pool_name = "mypool",
-    pool_size = 5,
-    **dbconfig
-)
+mcp = MysqlConnectionPoolRepository.getInstance()
 
 class UserSession:    
     def getSessionName(self):
@@ -39,26 +28,7 @@ class UserSession:
             return True
         else:
             return False
-
-class MysqlConnecter:
-    def __init__(self, sql, na):
-        self.cnx = cnxpool.get_connection()
-        self.mycursor = self.cnx.cursor(buffered=True)
-        self.sql = sql
-        self.na = na
-    def execute(self):
-        self.mycursor.execute(self.sql, self.na)
-        
-    def commit(self):
-        self.cnx.commit()
-        
-    def close(self):
-        self.cnx.close()
-        self.mycursor.close()
-        
-    def fetchall(self):
-        self.results = self.mycursor.fetchall()
-        
+  
 app = Flask(__name__,
             static_folder="static",
             static_url_path="/")
@@ -66,6 +36,10 @@ app = Flask(__name__,
 app.secret_key = 'sexy_secret_key'
 
 user = UserSession()
+
+@app.route('/indexGrid')
+def indexGrid():
+    return render_template('indexGrid.html')
 
 @app.route('/')
 def index():
@@ -103,17 +77,13 @@ def signin():
         json = request.form
         sql = "SELECT * FROM member WHERE username = %s AND password = %s"
         na = (json["username"], json["password"])
-        mc = MysqlConnecter(sql, na)
-        mc.execute()
-        mc.fetchall()
-        user.setSessionById(mc.results[0][0])
-        user.setSessionByName(mc.results[0][1])
+        result = mcp.fetchOne(sql, na)
+        user.setSessionById(result[0][0])
+        user.setSessionByName(result[0][1])
     except Exception as e:
         print(e)
-        mc.close()
         return redirect('/error?message=帳號或密碼輸入錯誤')
     else:
-        mc.close()
         return redirect('/member')
         
     
@@ -137,14 +107,10 @@ def signup():
         json = request.form
         sql = "INSERT INTO member (name, username, password) VALUES (%s, %s, %s)"
         na = (json["name"], json["username"], json["password"])
-        mc = MysqlConnecter(sql, na)
-        mc.execute()
-        mc.commit()
-        mc.close()
+        mcp.commitTransaction(sql, na)
         return redirect('/')
     except Exception as e:
         print(e)
-        mc.close()
         return redirect('/error?message=資料輸入不完整')
     
 @app.route('/api/member', methods=['GET'])
@@ -153,16 +119,12 @@ def apiMember():
         if user.isLogin():
             sql = "SELECT * FROM member WHERE username = %s"
             na = (request.args.get('username'),)
-            mc = MysqlConnecter(sql, na)
-            mc.execute()
-            mc.commit()
-            mc.fetchall()
-            mc.close()
+            result = mcp.fetchOne(sql, na)
             data = {
                 "data":{
-                    "id":mc.results[0][0],
-                    "name":mc.results[0][1],
-                    "username":mc.results[0][2]
+                    "id":result[0][0],
+                    "name":result[0][1],
+                    "username":result[0][2]
                 }
             }
             return Response(json.dumps(data), status=201, mimetype='application/json')
@@ -170,7 +132,6 @@ def apiMember():
             return Response('{"data":null}', status=201, mimetype='application/json')
     except Exception as e:
         print(e)
-        mc.close()
         return Response('{"data":null}', status=201, mimetype='application/json')
      
 @app.route('/api/member', methods=['PATCH'])
@@ -180,17 +141,13 @@ def patchMember():
             json = request.json
             sql = "UPDATE member  SET name = %s WHERE id = %s"
             na = (json["name"], session["id"])
-            mc = MysqlConnecter(sql, na)
-            mc.execute()
-            mc.commit()
-            mc.close()
+            mcp.commitTransaction(sql, na)
             user.setSessionByName(json["name"])
             return Response('{"ok":true}', status=201, mimetype='application/json')
         else:
             return Response('{"error":true}', status=201, mimetype='application/json')
     except Exception as e:
         print(e)
-        mc.close()
         return Response('{"error":true}', status=201, mimetype='application/json')
     
 @app.route('/api/memberName', methods=['GET'])
