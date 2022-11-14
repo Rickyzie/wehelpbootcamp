@@ -9,11 +9,11 @@ import mysql.connector
 dbconfig = {
     "host":"localhost",      
     "user":"root",    
-    "passwd":"",   
+    "passwd":"aa24572880",   
     "database": "member_db"
 }
 
-
+cur=mysql.connection.cursor()
 
 cnxpool = mysql.connector.pooling.MySQLConnectionPool(
     pool_name = "mypool",
