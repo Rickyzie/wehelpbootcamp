@@ -21,7 +21,7 @@ cnxpool = mysql.connector.pooling.MySQLConnectionPool(
     **dbconfig
 )
 
-
+# sadddsaadsa
 app = Flask(__name__,
             static_folder="static",
             static_url_path="/")
