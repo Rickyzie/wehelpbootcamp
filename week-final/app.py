@@ -39,7 +39,7 @@ user = UserSession()
 
 @app.route('/indexGrid')
 def indexGrid():
-    return render_template('indexGrid.html')
+    return render_template('index.html')
 
 @app.route('/')
 def index():
