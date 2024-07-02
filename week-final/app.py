@@ -55,7 +55,7 @@ def index():
 def member():
     try:
         if user.isLogin():
-            return render_template('member.html')
+            return render_template('asasasddsa.html')
     except Exception as e:
         print(e)
         return redirect('/')
